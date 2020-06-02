@@ -1,4 +1,4 @@
-# React Training - Challenge #3 #
+# Frontend Training - Challenge #5 #
 Consolidate knowledge on redux, routing and API requests.
 
 ## Description ##
