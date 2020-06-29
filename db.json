@@ -1,0 +1,11 @@
+{
+  "users": [
+    {
+      "email": "jungle.test@jungledevs.com",
+      "password": "$2a$10$ZzugjJSHr0cP/hCSkjaaS.oEGWwCsBTiAKq4kcLhEVLN4eSvME92y",
+      "id": 1,
+      "name": "Jungle Test",
+      "avatar": "http://localhost:3000/assets/images/user-avatar.png"
+    }
+  ]
+}
