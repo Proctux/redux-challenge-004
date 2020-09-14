@@ -44,6 +44,7 @@ You're going to run a local server for the api, called json-server ([json-server
         avatar: "http://localhost:3000/assets/images/user-avatar.png"
       }
       ```
+  * Your user id is 1
 ## Acceptance criteria ##
 1. The user must be able to log in.
 2. Show error in case of user providing wrong credentials.
