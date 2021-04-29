@@ -5,6 +5,15 @@
   max-height: 5rem;
 }
 
+.hidden-label {
+  position: absolute;
+  left: -10000rem;
+  top: auto;
+  width: 0.1rem;
+  height: 0.1rem;
+  overflow: hidden;
+}
+
 .input-content {
   border: 0;
   width: 100%;

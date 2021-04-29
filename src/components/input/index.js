@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 
 import ShowPasswordIcon from '../../../public/assets/icons/password-show.svg'
 import HidePasswordIcon from '../../../public/assets/icons/password-hide.svg'
@@ -19,7 +20,8 @@ const Input = ({
   name,
   value,
   type,
-  id
+  id,
+  hiddenLabel
 }) => {
   const [showPassword, setShowPassword] = useState(false)
 
@@ -33,7 +35,7 @@ const Input = ({
     <div className={styles['input-container']}>
       <label
         htmlFor={id}
-        className="input-label"
+        className={classnames(styles['input-label'], {[styles['hidden-label']]: hiddenLabel})}
       >
         {label}
       </label>
@@ -76,6 +78,7 @@ Input.propTypes = {
   value: PropTypes.string,
   type: PropTypes.string,
   id: PropTypes.string.isRequired,
+  hiddenLabel: PropTypes.bool,
 }
 
 Input.defaultProps = {
@@ -84,7 +87,8 @@ Input.defaultProps = {
   disabled: false,
   name: '',
   value: '',
-  type: 'text'
+  type: 'text',
+  hiddenLabel: false,
 }
 
 export default Input

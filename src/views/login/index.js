@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 
 import JungleIcon from '../../../public/assets/icons/jungle-devs-logo.svg'
 import Button from '../../components/button'
@@ -8,7 +8,14 @@ import Input from '../../components/input'
 import styles from './styles.module.css'
 
 const Login = () => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
+  const onInputChange = useCallback((event, state) => {
+    const { value } = event.target
+
+    state(value)
+  }, [])
 
   return (
     <div className={styles['login']}>
@@ -18,8 +25,25 @@ const Login = () => {
         </svg>
 
         <form className={styles['form-container']}>
-          <Input placeholder="Email" type="email" name="email"/>
-          <Input placeholder="Password" type="password" name="password"/>
+          <Input
+            id="email-input"
+            label="email"
+            hiddenLabel
+            value={email}
+            onChange={event => onInputChange(event, setEmail)}
+            placeholder="Email"
+            type="email"
+            name="email"
+          />
+          <Input
+            id="password-input"
+            label="password"
+            hiddenLabel
+            value={password} onChange={event => onInputChange(event, setPassword)}
+            placeholder="Password"
+            type="password"
+            name="password"
+          />
         </form>
 
         <Button>
