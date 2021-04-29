@@ -10,6 +10,7 @@ import styles from './styles.module.css'
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState(false)
 
   const onInputChange = useCallback((event, state) => {
     const { value } = event.target
@@ -43,6 +44,7 @@ const Login = () => {
             placeholder="Password"
             type="password"
             name="password"
+            hasError={error}
           />
         </form>
 

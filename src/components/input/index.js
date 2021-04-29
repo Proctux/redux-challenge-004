@@ -21,12 +21,22 @@ const Input = ({
   value,
   type,
   id,
-  hiddenLabel
+  hiddenLabel,
+  hasError
 }) => {
   const [showPassword, setShowPassword] = useState(false)
+  const [isFocused, setIsFocused] = useState(false)
 
   const onTogglePassword = useCallback(() => {
     setShowPassword(prevState => !prevState)
+  }, [])
+
+  const handleOnFocus = useCallback(() => {
+    setIsFocused(true)
+  }, [])
+
+  const handleBlur = useCallback(() => {
+    setIsFocused(false)
   }, [])
 
   const toggleIcon = useMemo(() => (showPassword ? HidePasswordIcon : ShowPasswordIcon), [showPassword])
@@ -35,12 +45,14 @@ const Input = ({
     <div className={styles['input-container']}>
       <label
         htmlFor={id}
-        className={classnames(styles['input-label'], {[styles['hidden-label']]: hiddenLabel})}
+        className={classnames(styles['input-label'], { [styles['hidden-label']]: hiddenLabel })}
       >
         {label}
       </label>
-      <div className={styles['input-box']}>
+      <div className={classnames(styles['input-box'], { [styles['input-on-focus']]: isFocused, [styles['input-error']]: hasError })}>
         <input
+          onBlur={handleBlur}
+          onFocus={handleOnFocus}
           className={styles["input-content"]}
           placeholder={placeholder}
           onChange={onChange}
@@ -65,6 +77,9 @@ const Input = ({
           </button>
         )}
       </div>
+      {hasError && (
+            <p className={styles['input-error-sentence']}>Invalid email or password</p>
+        )}
     </div>
   )
 }
@@ -79,6 +94,7 @@ Input.propTypes = {
   type: PropTypes.string,
   id: PropTypes.string.isRequired,
   hiddenLabel: PropTypes.bool,
+  hasError: PropTypes.bool
 }
 
 Input.defaultProps = {
@@ -89,6 +105,7 @@ Input.defaultProps = {
   value: '',
   type: 'text',
   hiddenLabel: false,
+  hasError: false,
 }
 
 export default Input
