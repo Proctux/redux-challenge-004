@@ -1,18 +1,20 @@
-import React, { useCallback, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useCallback, useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 import JungleIcon from '../../assets/icons/jungle-devs-logo.svg'
 import Button from '../../components/button'
-import { login } from '../../modules/user/actions'
+import { login, saveEmail } from '../../modules/user/actions'
 
 import Input from '../../components/input'
 
 import styles from './styles.module.css'
+import { getUserSelector, hasErrorSelector } from '../../modules/user/selectors'
 
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [error, setError] = useState(false)
+  const error = useSelector(hasErrorSelector)
+  const { accessToken } = useSelector(getUserSelector)
 
   const dispatch = useDispatch()
 
@@ -27,9 +29,17 @@ const Login = () => {
 
     if(email && password) {
         dispatch(login({ email, password }))
+        dispatch(saveEmail( email ))
     }
 
   }, [dispatch, email, password])
+
+  useEffect(() => {
+    if(accessToken) {
+      // TODO - navigate to other screen
+      console.log('ok true')
+    }
+  }, [accessToken])
 
   return (
     <div className={styles['login']}>
@@ -58,9 +68,9 @@ const Login = () => {
             hasError={error}
           />
 
-        <Button type="submit">
-          Login
-        </Button>
+          <Button type="submit" className={styles['button-container']}>
+            Login
+          </Button>
         </form>
       </div>
     </div>
