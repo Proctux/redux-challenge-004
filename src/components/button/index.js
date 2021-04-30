@@ -18,9 +18,7 @@ const Button = ({ icon, children, onClick, type, disabled, theme }) => {
       className={classnames(styles['button-content'], styles[theme])}
     >
       {icon && (
-        <svg className={styles['button-icon']} viewBox={icon.viewBox}>
-          <use xlinkHref={`#${icon.id}`}/>
-        </svg>
+        <img src={icon} className={styles['button-icon']} alt="Icon"/>
       )}
       {children}
     </button>

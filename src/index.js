@@ -1,13 +1,24 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux'
 
 import Router from './router'
 
+import configureStore from './store/configure-store'
+
 import './styles.css'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <Router />
-  </React.StrictMode>,
-  document.getElementById('root')
-)
+const root = () => {
+  const initialState = {}
+
+  const store = configureStore(initialState)
+
+  render(
+    <Provider store={store}>
+      <Router />
+    </Provider>,
+    document.getElementById('root')
+  )
+}
+
+root()
