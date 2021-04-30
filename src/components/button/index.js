@@ -9,18 +9,16 @@ const ButtonTheme = {
   SECONDARY: 'secondary'
 }
 
-const Button = ({ icon, children, onClick, type, disabled, theme }) => {
+const Button = ({ icon, children, onClick, type, disabled, theme, className }) => {
   return (
     <button
       onClick={onClick}
       disabled={disabled}
       type={type}
-      className={classnames(styles['button-content'], styles[theme])}
+      className={classnames(styles['button-content'], styles[theme], className)}
     >
       {icon && (
-        <svg className={styles['button-icon']} viewBox={icon.viewBox}>
-          <use xlinkHref={`#${icon.id}`}/>
-        </svg>
+        <img src={icon} className={styles['button-icon']} alt="Icon"/>
       )}
       {children}
     </button>
@@ -40,6 +38,7 @@ Button.propTypes = {
   disabled: PropTypes.bool,
   type: PropTypes.string,
   theme: PropTypes.oneOf(Object.values(ButtonTheme)),
+  className: PropTypes.string,
 }
 
 Button.defaultProps = {
@@ -48,7 +47,8 @@ Button.defaultProps = {
   children: '',
   disabled: false,
   type: 'button',
-  theme: ButtonTheme.DEFAULT
+  theme: ButtonTheme.DEFAULT,
+  className: '',
 }
 
 export default Button

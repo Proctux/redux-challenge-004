@@ -1,16 +1,22 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
-import JungleIcon from '../../../public/assets/icons/jungle-devs-logo.svg'
+import JungleIcon from '../../assets/icons/jungle-devs-logo.svg'
 import Button from '../../components/button'
+import { login, saveEmail } from '../../modules/user/actions'
 
 import Input from '../../components/input'
 
 import styles from './styles.module.css'
+import { getUserSelector, hasErrorSelector } from '../../modules/user/selectors'
 
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [error, setError] = useState(false)
+  const error = useSelector(hasErrorSelector)
+  const { accessToken } = useSelector(getUserSelector)
+
+  const dispatch = useDispatch()
 
   const onInputChange = useCallback((event, state) => {
     const { value } = event.target
@@ -18,14 +24,29 @@ const Login = () => {
     state(value)
   }, [])
 
+  const onSubmit = useCallback(async event => {
+    event.preventDefault()
+
+    if(email && password) {
+        dispatch(login({ email, password }))
+        dispatch(saveEmail( email ))
+    }
+
+  }, [dispatch, email, password])
+
+  useEffect(() => {
+    if(accessToken) {
+      // TODO - navigate to other screen
+      console.log('ok true')
+    }
+  }, [accessToken])
+
   return (
     <div className={styles['login']}>
       <div className={styles['login-card']}>
-        <svg className={styles['login-icon']} viewBox={JungleIcon.viewBox} aria-hidden="true">
-          <use xlinkHref={`#${JungleIcon.id}`}/>
-        </svg>
+        <img className={styles['login-icon']} src={JungleIcon} alt="Jungle logo" />
 
-        <form className={styles['form-container']}>
+        <form className={styles['form-container']} onSubmit={onSubmit}>
           <Input
             id="email-input"
             label="email"
@@ -46,11 +67,11 @@ const Login = () => {
             name="password"
             hasError={error}
           />
-        </form>
 
-        <Button>
-          Login
-        </Button>
+          <Button type="submit" className={styles['button-container']}>
+            Login
+          </Button>
+        </form>
       </div>
     </div>
   )

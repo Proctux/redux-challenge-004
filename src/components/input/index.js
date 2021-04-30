@@ -2,8 +2,8 @@ import React, { useCallback, useMemo, useState } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
-import ShowPasswordIcon from '../../../public/assets/icons/password-show.svg'
-import HidePasswordIcon from '../../../public/assets/icons/password-hide.svg'
+import ShowPasswordIcon from '../../assets/icons/password-show.svg'
+import HidePasswordIcon from '../../assets/icons/password-hide.svg'
 
 import styles from './styles.module.css'
 
@@ -71,9 +71,7 @@ const Input = ({
             name={name}
             disabled={disabled}
           >
-            <svg className={styles['show-password-icon']} viewBox={toggleIcon.viewBox}>
-              <use xlinkHref={`#${toggleIcon.id}`} />
-            </svg>
+            <img src={toggleIcon} className={styles['show-password-icon']} alt={`${id} icon`} />
           </button>
         )}
       </div>
